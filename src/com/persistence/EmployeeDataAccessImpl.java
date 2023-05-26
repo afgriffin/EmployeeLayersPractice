@@ -14,7 +14,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
 
     @Override
     public boolean writeRecords(LinkedList<Employee> employees)throws Exception {
-        FileWriter fileWriter=new FileWriter("EmployeesData.txt");
+        FileWriter fileWriter=new FileWriter("C:\\Users\\allie\\Documents\\Wiley WIT\\DI004\\EmployeeLayers\\EmployeeLayersPractice\\EmployeesData.txt");
         PrintWriter printWriter=new PrintWriter(fileWriter);
 
         for(Employee employee:employees) {
@@ -35,7 +35,7 @@ public class EmployeeDataAccessImpl implements EmployeeDataAccess {
     public LinkedList<Employee> readRecords()throws Exception {
         LinkedList<Employee> employees=new LinkedList<Employee>();
 
-        FileReader fileReader = new FileReader("EmployeesData.txt");
+        FileReader fileReader = new FileReader("C:\\Users\\allie\\Documents\\Wiley WIT\\DI004\\EmployeeLayers\\EmployeeLayersPractice\\EmployeesData.txt");
 
         // read the content from buffer
         BufferedReader bufferedReader = new BufferedReader(fileReader);

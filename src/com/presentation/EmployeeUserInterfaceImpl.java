@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 import com.dto.Employee;
+import com.exceptions.EmployeeIdNotFoundException;
 import com.service.EmployeeBusinessLogic;
 import com.service.EmployeeBusinessLogicImpl;
 
@@ -54,18 +55,22 @@ public class EmployeeUserInterfaceImpl implements EmployeeUserInterface {
             case 3:
                 System.out.println("Enter Employee ID whose record you want to delete : ");
                 int id=scanner.nextInt();
-                if(businessLogic.deleteEmployee(id))
+                try {
+                    businessLogic.deleteEmployee(id);
                     System.out.println("Record Deleted");
-                else
-                    System.out.println("Employee with id "+id+" does not exist");
+                } catch (EmployeeIdNotFoundException e) {
+                System.out.println("Employee with id " + id + " does not exist");
+                }
                 break;
             case 4:
                 System.out.println("Enter the Employee ID that you want to search: ");
                 id = scanner.nextInt();
-                if (businessLogic.searchEmployee(id) != null)
+                try {
+                    businessLogic.searchEmployee(id);
                     System.out.println(businessLogic.searchEmployee(id));
-                else
+                } catch (EmployeeIdNotFoundException e) {
                     System.out.println("Employee not found.");
+                }
                 break;
             case 5:
                 businessLogic.saveAllEmployees();

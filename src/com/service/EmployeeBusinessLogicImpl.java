@@ -3,8 +3,10 @@ package com.service;
 import java.util.LinkedList;
 
 import com.dto.Employee;
+import com.exceptions.EmployeeIdNotFoundException;
 import com.persistence.EmployeeDataAccess;
 import com.persistence.EmployeeDataAccessImpl;
+import com.exceptions.EmployeeIdNotFoundException;
 
 public class EmployeeBusinessLogicImpl implements EmployeeBusinessLogic {
 
@@ -34,12 +36,14 @@ public class EmployeeBusinessLogicImpl implements EmployeeBusinessLogic {
     }
 
     @Override
-    public boolean deleteEmployee(int id) {
+    public void deleteEmployee(int id) throws EmployeeIdNotFoundException {
+        boolean status = false;
         for(Employee employee:employeeList) {
             if(id==employee.getEmpId())
-                return employeeList.remove(employee);
+                status = employeeList.remove(employee);
         }
-        return false;
+        if(status == false)
+            throw new EmployeeIdNotFoundException("Employee id " + id + " not found");
     }
 
     public void saveAllEmployees() {
@@ -51,13 +55,25 @@ public class EmployeeBusinessLogicImpl implements EmployeeBusinessLogic {
         }
     }
 
+    //@Override
+    //public Employee searchEmployee(int id) {
+    //    Employee result = null;
+    //    for(Employee employee : employeeList) {
+    //        if (id == employee.getEmpId())
+    //            result = employee;
+    //    }
+    //    return result;
+    //}
+
     @Override
-    public Employee searchEmployee(int id) {
+    public Employee searchEmployee(int id) throws EmployeeIdNotFoundException{
         Employee result = null;
         for(Employee employee : employeeList) {
             if (id == employee.getEmpId())
                 result = employee;
         }
+        if(result == null)
+            throw new EmployeeIdNotFoundException("Employee id " + id + " not found");
         return result;
     }
 
